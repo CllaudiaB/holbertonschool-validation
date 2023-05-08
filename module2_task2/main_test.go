@@ -32,7 +32,7 @@ func Test_HelloHandler(t *testing.T) {
     },
     // INSERT MORE TESTS HERE
     {
-      name:         "Ethan",
+      name:         "",
       queryString:  "name=",
       responseCode: 400,
       body:	    "",
