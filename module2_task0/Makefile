@@ -5,10 +5,10 @@ run:    ## Run the application in background by executing the binary
 	./awesome-api >./awesome-api.log 2>&1 &
 
 stop:   ## Stop the application with the command kill
-	kill "$(pgrep awesome-api)"
+	pkill awesome-api
 
 clean:  ## Stop the application and delete the binary
-	kill "$(pgrep awesome-api)"
+	pkill awesome-api
 	rm awesome-api awesome-api.log
 
 test: 	## Test
