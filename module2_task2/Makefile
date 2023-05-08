@@ -19,8 +19,9 @@ test: 	## Test
 	curl http://localhost:9999
 	curl http://localhost:9999/health
 
+unit-tests: ## Execute the Golang unit-tests
+        go test -v -short -coverprofile=coverage-units.out
+
 help: 	## Print a list of all the goals with a sentence
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
-unit-tests: ## Execute the Golang unit-tests
-	go test -v -short -coverprofile=coverage-units.out
