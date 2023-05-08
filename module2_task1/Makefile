@@ -1,5 +1,5 @@
 lint: 	## Should fail when the linter catches and error
-	@$(MAKE) lint
+	golangci-lint run
 
 build:  ## Compile the source code of the application to a binary
 	go build
@@ -8,10 +8,10 @@ run:    ## Run the application in background by executing the binary
 	./awesome-api >./awesome-api.log 2>&1 &
 
 stop:   ## Stop the application with the command kill
-	kill awesome-api
+	pkill awesome-api
 
 clean:  ## Stop the application and delete the binary
-	kill awesome-api
+	pkill awesome-api
 	rm awesome-api awesome-api.log
 
 test: 	## Test
