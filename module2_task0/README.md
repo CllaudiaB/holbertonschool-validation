@@ -6,7 +6,7 @@
 * Python 3 with pip module
 * golangci-lint
 
-### Life-cycle
+### Lifecycle
 * “build”: compile the source code of the application to a binary
 * “run”: Run the application in background by executing the binary
 * “stop”: Stop the application with the command kill XXXXX where XXXXX is the Process ID of the application
