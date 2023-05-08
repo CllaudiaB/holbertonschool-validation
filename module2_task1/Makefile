@@ -2,8 +2,8 @@ lint: 	## Should fail when the linter catches and error
 	golangci-lint run
 
 build:  ## Compile the source code of the application to a binary
+	golangci-lint run
 	go build
-	@$(MAKE) lint
 
 run:    ## Run the application in background by executing the binary
 	./awesome-api >./awesome-api.log 2>&1 &
