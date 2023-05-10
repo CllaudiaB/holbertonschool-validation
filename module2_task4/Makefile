@@ -16,4 +16,4 @@ validate: ## Must always succeed by default and should print the result on the s
 	python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html || true
 
 help:   ## Show this help
-	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\\$$//' | sed -e 's/##//'
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
