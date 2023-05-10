@@ -16,5 +16,4 @@
     * check: Succeed by default, and fail when presented with a dead link
                 or a badly written Markdown file
     * validate: Always succeed by default and should print the result on the stdout
-
     * help: help
