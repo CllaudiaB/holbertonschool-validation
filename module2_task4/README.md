@@ -17,3 +17,4 @@ the environment variables POST_TITLE and POST_NAME
 presented with a dead link or a badly written Markdown file
 * validate: must always succeed by default and should
 print the result on the stdout
+
