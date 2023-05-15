@@ -10,7 +10,6 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   build:
-
     runs-on: ubuntu-22.04
 
     steps:
