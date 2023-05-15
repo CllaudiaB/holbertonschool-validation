@@ -6,10 +6,14 @@
 * to unarchive :
   * run the command: unzip awesome-website.zip
 
-## Commande to start and stop the application
+## What are the commands to start and stop the application
 
 * use: hugo server
 
-## Check the application
+## How to customize where the application logs are written
+
+* to be determined
+
+## How to “quickly” verify that the application is running
 
 * use: http://localhost:1313
