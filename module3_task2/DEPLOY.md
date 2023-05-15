@@ -16,4 +16,4 @@
 
 ## How to “quickly” verify that the application is running
 
-* use: [Example Link](http://localhost:1313)
+* use: <http://localhost:1313>
