@@ -1,0 +1,44 @@
+---
+name: module3_task4
+# Events that trigger workflows
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  pull_request:
+    types: [opened, reopened, edited, ready_for_review]
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "Checkout"  # Download code from the repository
+        uses: actions/checkout@v3
+      - name: "Run bash script"
+        run: cd module3_task4 && ./setup.sh
+      - name: "Run make build"  # Execute the command make build
+        run: cd module3_task4 && make build
+      - name: "Testing"
+        run: |
+          cd module3_task4 && make validate
+          make integration-tests
+          make unit-tests
+          make package
+          make clean
+      - name: Release
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: 1.0.1
+          files: |
+            module3_task3/awesome-website.zip
+            module3_task3/DEPLOY.md
+      - name: "archive build"
+        uses: actions/upload-artifact@v3
+        with:
+          name: "upload package"
+          path: module3_task4/awesome-website.zip
