@@ -1,7 +1,6 @@
----
 name: module3_task5
 # Events that trigger workflows
-on:  # yamllint disable-line rule:truthy
+on:
   push:
     branches:
       - master
@@ -42,10 +41,12 @@ jobs:
         with:
           name: "upload package"
           path: module3_task5/awesome-website.zip
+      - name: "Add 'Published on' line"
+        run: echo "🎉 Published on $(date)" >> $GITHUB_WORKSPACE/build.log
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
-          publish-dir: 'netlify deploy --prod --dir=./dist/'
+          publish-dir: './module3_task5/dist'
           production-branch: master
           github-token: ${{ secrets.TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
