@@ -23,7 +23,7 @@ jobs:
         run: cd module3_task5 && make build
       - name: "Testing"
         run: |
-          cd module3_task4 && make validate
+          cd module3_task5 && make validate
           make integration-tests
           make unit-tests
           make package
