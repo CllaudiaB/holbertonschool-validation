@@ -4,7 +4,7 @@ name: module3_task5
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
-      - master
+      - main
   schedule:
     - cron: '0 0 * * *'
   pull_request:
@@ -49,7 +49,7 @@ jobs:
         uses: nwtgck/actions-netlify@v2
         with:
           publish-dir: './dist'
-          production-branch: master
+          production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
