@@ -4,11 +4,16 @@ RM=rm -rf
 MAKE=make
 COVERAGE=coverage
 HUGO=hugo
+DOCKER_OPTIONS=--rm --tty --volume=`pwd`:/app --workdir=/app
+DOCKER=docker run $(DOCKER_OPTIONS)
+DOCKER_IMAGE=golang:1.15.8-buster
 
 build:	## Generate the source code of the application to a binary.
-	$(MAKE) lint
-	$(GO) mod tidy
-	$(MAKE) check && $(HUGO) && $(GO) build -o $(TARGET)
+	$(DOCKER) $(DOCKER_IMAGE) sh -c "./setup.sh $(MAKE) lint \
+	&& $(GO) mod tidy \
+	&& $(MAKE) check \
+	&& $(HUGO) \
+	&& $(GO) build -o $(TARGET)"
 
 run:	## Run the application in background by executing the binary.
 	./$(TARGET) >./$(TARGET).log 2>&1 &
@@ -24,18 +29,18 @@ clean:	## Stop the application. Delete the binary and the log file.
 	@if pgrep -x $(TARGET) > /dev/null; then \
 		pkill $(TARGET); \
 	fi
-	@$(RM) $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out dist/ *~
+	@$(RM) $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out dist/ *~ awesome-website.zip
 
 test:	## Test the application.
-	$(MAKE) unit-tests
-	$(MAKE) integration-tests
-	$(MAKE) validate
+	$(DOCKER) $(DOCKER_IMAGE) sh -c "./setup.sh $(MAKE) unit-tests \
+	&& $(MAKE) integration-tests \
+	&& $(MAKE) validate"
 
 unit-tests: ## Run unit tests
-	go test -v -short -coverprofile=$(COVERAGE)-units.out
+	$(GO) test -v -short -coverprofile=$(COVERAGE)-units.out
 
 integration-tests: ## Run integration tests
-	go test -v -coverprofile=$(COVERAGE)-integrations.out
+	$(GO) test -v -coverprofile=$(COVERAGE)-integrations.out
 
 lint:	## Lint go lang code
 	golangci-lint run
@@ -48,10 +53,8 @@ check:	## Lint markdonw source, check dead links
 validate:	## Validate the file dist/index.html using the command line Holberton’s W3C Validator.
 	python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html || true
 
+package:	## Create a zip file with the awesome-api binary and the dist/ directory
+	zip -r awesome-website.zip awesome-api dist
+
 help:	## Show this help usage.
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
-
-package:	## Create a zip file containing the awesome-api binary and the dist/ directory
-	sudo apt install zip
-	zip -r awesome-website.zip awesome-api dist
-	sudo apt install unzip
