@@ -1,0 +1,57 @@
+---
+name: module4_task0
+# Events that trigger workflows
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * *'
+  pull_request:
+    types: [opened, reopened, edited, ready_for_review]
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "Checkout"  # Download code from the repository
+        uses: actions/checkout@v3
+      - name: "Run bash script"
+        run: cd module4_task0 && ./setup.sh
+      - name: "Run make build"  # Execute the command make build
+        run: cd module4_task0 && make build
+      - name: "Testing"
+        run: |
+          cd module4_task0 && make validate
+          make integration-tests
+          make unit-tests
+          make package
+          make clean
+      - name: Release
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: 1.0.1
+          files: |
+            module4_task0/awesome-website.zip
+            module4_task0/DEPLOY.md
+      - name: "archive build"
+        uses: actions/upload-artifact@v3
+        with:
+          name: "upload package"
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2.0
+        with:
+          publish-dir: './dist'
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
