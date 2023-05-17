@@ -18,10 +18,6 @@ curl --silent --show-error --location --output /tmp/golangci-lint.deb \
      "https://github.com/golangci/golangci-lint/releases/download/v${GOLANGCILINT_VERSION}/golangci-lint-${GOLANGCILINT_VERSION}-linux-amd64.deb"
 dpkg -i /tmp/golangci-lint.deb
 rm -f /tmp/golangci-lint.deb
-curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/maste\
-r/install.sh | sh -s
-
-
 
 npm install --global \
   markdownlint-cli@0.26.0 \
