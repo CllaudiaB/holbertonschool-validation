@@ -1,3 +1,7 @@
+#!/bin/bash
+
+apt-get update && sudo apt-get install -y make curl
+
 ## Add official nodejs distribution apt repository
 curl -sL https://deb.nodesource.com/setup_14.x | bash -
 
