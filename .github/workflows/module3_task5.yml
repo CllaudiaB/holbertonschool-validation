@@ -1,5 +1,5 @@
 ---
-name: module3_task4
+name: module3_task5
 # Events that trigger workflows
 on:  # yamllint disable-line rule:truthy
   push:
@@ -18,9 +18,9 @@ jobs:
       - name: "Checkout"  # Download code from the repository
         uses: actions/checkout@v3
       - name: "Run bash script"
-        run: cd module3_task4 && ./setup.sh
+        run: cd module3_task5 && ./setup.sh
       - name: "Run make build"  # Execute the command make build
-        run: cd module3_task4 && make build
+        run: cd module3_task5 && make build
       - name: "Testing"
         run: |
           cd module3_task4 && make validate
@@ -35,13 +35,13 @@ jobs:
         with:
           tag_name: 1.0.1
           files: |
-            module3_task3/awesome-website.zip
-            module3_task3/DEPLOY.md
+            module3_task5/awesome-website.zip
+            module3_task5/DEPLOY.md
       - name: "archive build"
         uses: actions/upload-artifact@v3
         with:
           name: "upload package"
-          path: module3_task4/awesome-website.zip
+          path: module3_task5/awesome-website.zip
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
