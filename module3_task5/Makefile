@@ -52,4 +52,6 @@ help:	## Show this help usage.
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
 package:	## Create a zip file containing the awesome-api binary and the dist/ directory
+	sudo apt install zip
 	zip -r awesome-website.zip awesome-api dist
+	sudo apt install unzip
