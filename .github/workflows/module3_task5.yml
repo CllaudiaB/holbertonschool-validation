@@ -43,6 +43,7 @@ jobs:
           path: module3_task5/awesome-website.zip
       - name: "Add 'Published on' line"
         run: echo "🎉 Published on $(date)" >> $GITHUB_WORKSPACE/build.log
+             echo "🚀 Deployed on $(date)" >> $GITHUB_WORKSPACE/build.log 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
